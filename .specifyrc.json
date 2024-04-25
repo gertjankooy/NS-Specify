@@ -1,11 +1,11 @@
 {
-  "repository": "@ns/Nessie",
+  "version": "2",
   "head": "specifyrc-json",
   "base": "main",
-  "version": "2",
+  "repository": "@gertjankooy/NS-Specify",
   "rules": [
     {
-      "name": "SDTF",
+      "name": "Generate tokens in JSON",
       "parsers": [
         {
           "name": "to-sdtf",

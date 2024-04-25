@@ -1,20 +1,106 @@
 {
-  "version": "2",
-  "head": "specifyrc-json",
-  "base": "main",
-  "repository": "@gertjankooy/NS-Specify",
-  "rules": [
-    {
-      "name": "Generate tokens in JSON",
-      "parsers": [
-        {
-          "name": "to-sdtf",
-          "output": {
-            "type": "file",
-            "filePath": "output/tokens.json"
+    "version": "2",
+    "head": "specifyrc-json",
+    "base": "main",
+    "repository": "@gertjankooy/NS-Specify",
+    "rules": [
+      {
+        "name": "Generate tokens in JSON",
+        "parsers": [
+          {
+            "name": "to-sdtf",
+            "output": {
+              "type": "file",
+              "filePath": "output/tokens.json"
+            }
+          }
+        ]
+      },
+      {
+        "name": "change-case",
+        "options": {
+          "change": "names",
+          "toCase": "kebabCase",
+          "applyTo": {
+            "collection": true
           }
         }
-      ]
-    }
-  ]
-}
+      },
+      {
+        "name": "change-case",
+        "options": {
+          "change": "modes",
+          "toCase": "kebabCase",
+          "applyTo": {
+            "collection": true
+          }
+        }
+      },
+      {
+        "name": "to-css-custom-properties",
+        "output": {
+          "type": "file",
+          "filePath": "tokens.css"
+        }
+      },
+      {
+        "name": "Generate text styles as CSS classes",
+        "parsers": [
+          {
+            "name": "filter",
+            "options": {
+              "query": {
+                "where": {
+                  "token": ".*",
+                  "withTypes": {
+                    "include": [
+                      "textStyle"
+                    ]
+                  },
+                  "select": {
+                    "token": true
+                  }
+                }
+              }
+            }
+          },
+          {
+            "name": "change-case",
+            "options": {
+              "toCase": "kebabCase",
+              "applyTo": {
+                "token": true
+              }
+            }
+          },
+          {
+            "name": "make-line-height-relative",
+            "options": {}
+          },
+          {
+            "name": "convert-dimension",
+            "options": {
+              "applyToKeys": {
+                "textStyle": [
+                  "fontSize"
+                ]
+              },
+              "toFormat": "rem"
+            }
+          },   
+          {
+            "name": "to-css-text-style",
+            "output": {
+              "type": "file",
+              "filePath": "public/text-styles.scss"
+            },
+            "options": {
+              "genericFamily": "sans-serif",
+              "tokenNameTemplate": "text-style-{{token}}"
+            }
+          }
+        ]
+      }
+    ]
+  }
+  

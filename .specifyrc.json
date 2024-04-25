@@ -40,7 +40,7 @@
         "name": "to-css-custom-properties",
         "output": {
           "type": "file",
-          "filePath": "tokens.css"
+          "filePath": "output/tokens.css"
         }
       },
       {
@@ -92,7 +92,7 @@
             "name": "to-css-text-style",
             "output": {
               "type": "file",
-              "filePath": "public/text-styles.scss"
+              "filePath": "output/text-styles.scss"
             },
             "options": {
               "genericFamily": "sans-serif",
